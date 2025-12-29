@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HSR mini wiki</title>
+    <link rel="icon" href="https://www.svgrepo.com/show/222880/star.svg">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', sans-serif;
+            background-color: #fdfdf5;
+            color: #3d5690;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-top: 100px;
+            padding: 20px;
+        }
+
+        /* Оформление шапки */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            height: 80px;
+            color: #f1fea2;
+            background-color: #13213b;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .header-left, .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+        }
+
+        #logo {
+            height: 40px;
+            width: auto;
+        }
+
+        .menu-button {
+            background: #5e93c5;
+            color: #f1fea2;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 16px;
+        }
+
+        .menu-button:hover {
+            background: #4a7cb0;
+        }
+
+        /* Выпадающее меню */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            background: white;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            min-width: 200px;
+            z-index: 1001;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .header-left .dropdown-menu {
+            left: 0;
+        }
+
+        .header-right .dropdown-menu {
+            right: 0;
+        }
+
+        .menu-item {
+            display: block;
+            width: 100%;
+            padding: 10px 15px;
+            background: white;
+            border: none;
+            text-align: left;
+            cursor: pointer;
+            color: #333;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        .menu-item:hover {
+            background: #f5f5f5;
+        }
+
+        /* Основной контент */
+        h2 {
+            margin-top: 20px;
+            text-align: center;
+            color: #3d5690;
+            font-size: 28px;
+        }
+
+        p {
+            text-align: justify;
+            margin: 20px auto;
+            max-width: 800px;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        /* Поиск */
+        .d1 {
+            position: relative;
+            width: 300px;
+        }
+
+        .d1 input {
+            width: 100%;
+            height: 37px;
+            padding-left: 15px;
+            outline: none;
+            background: #9fbaf1;
+            color: #13213b;
+            border: none;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        .d1 button {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 42px;
+            height: 37px;
+            border: none;
+            background: #5e93c5;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            color: #f1fea2;
+            font-size: 16px;
+        }
+
+        .d1 button:hover {
+            background: #4a7cb0;
+        }
+
+        /* Карусель */
+        .carousel-container {
+            max-width: 90%;
+            margin: 30px auto;
+            text-align: center;
+        }
+
+        .carousel-container h2 {
+            margin-bottom: 30px;
+            color: #3d5690;
+        }
+
+        .carousel {
+            position: relative;
+            background: #9fbaf1;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 20px 0;
+        }
+
+        .cards-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            position: relative;
+        }
+
+        .cards-wrapper {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            padding: 10px;
+            max-width: calc(100% - 140px);
+        }
+
+        .cards-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+        .card {
+            flex: 0 0 280px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background: white;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 180px;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 15px;
+        }
+
+        .card-title {
+            margin: 0;
+            font-size: 18px;
+            color: #333;
+            text-align: center;
+        }
+
+        .arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.8);
+            cursor: pointer;
+            border: none;
+            font-size: 20px;
+            color: #333;
+            transition: background 0.3s ease;
+        }
+
+        .arrow:hover {
+            background: rgba(255, 255, 255, 1);
+        }
+
+        @media (max-width: 768px) {
+            .arrow {
+                display: none;
+            }
+            
+            .cards-wrapper {
+                width: 100%;
+                max-width: 100%;
+            }
+            
+            .card {
+                flex: 0 0 220px;
+            }
+            
+            .d1 {
+                width: 200px;
+            }
+            
+            .header-left, .header-right {
+                gap: 10px;
+            }
+            
+            .main-content {
+                margin-top: 120px;
+            }
+        }
+
+        /* Футер */
+        footer {
+            background-color: #13213b;
+            color: #f1fea2;
+            padding: 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        footer h4 {
+            margin: 5px 0;
+            font-weight: normal;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <!-- React и Babel для разработки -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Весь React код в одном теге -->
+    <script type="text/babel">
+        // Компонент карусели персонажей
+        class PhotoCart extends React.Component {
+            constructor(props) {
+                super(props);
+                this.cardsWrapperRef = React.createRef();
+            }
+
+            characters = [
+                {
+                    name: "Темень",
+                    image: "https://static.wikia.nocookie.net/honkai-star-rail/images/b/b0/%D0%9F%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%B6_%D0%A2%D0%B5%D0%BC%D0%B5%D0%BD%D1%8C_%D0%A1%D0%BF%D0%BB%D1%8D%D1%88-%D0%B0%D1%80%D1%82.png/revision/latest/scale-to-width-down/1000?cb=20250912143857&path-prefix=ru"
+                },
+                {
+                    name: "Кирена",
+                    image: "https://static.wikia.nocookie.net/honkai-star-rail/images/4/4e/%D0%9F%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%B6_%D0%9A%D0%B8%D1%80%D0%B5%D0%BD%D0%B0_%D0%A1%D0%BF%D0%BB%D1%8D%D1%88-%D0%B0%D1%80%D1%82.png/revision/latest/scale-to-width-down/1000?cb=20250911055101&path-prefix=ru"
+                },
+                {
+                    name: "Дань Хэн",
+                    image: "https://static.wikia.nocookie.net/honkai-star-rail/images/1/19/%D0%9F%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%B6_%D0%94%D0%B0%D0%BD%D1%8C_%D0%A5%D1%8D%D0%BD_%D0%9E%D1%81%D0%B2%D0%BE%D0%B1%D0%BE%D0%B4%D0%B8%D1%82%D0%B5%D0%BB%D1%8C_%D0%9F%D1%83%D1%81%D1%82%D0%BE%D1%88%D0%B5%D0%B9_%D0%A1%D0%BF%D0%BB%D1%8D%D1%88-%D0%B0%D1%80%D1%82.png/revision/latest/scale-to-width-down/1000?cb=20250912143840&path-prefix=ru"
+                },
+                {
+                    name: "Галлахер",
+                    image: "https://static.wikia.nocookie.net/houkai-star-rail/images/2/2d/Character_Gallagher_Splash_Art.png/revision/latest/scale-to-width-down/1000?cb=20240327022011"
+                },
+                {
+                    name: "Миша",
+                    image: "https://static.wikia.nocookie.net/houkai-star-rail/images/5/5c/Character_Misha_Splash_Art.png/revision/latest/scale-to-width-down/1000?cb=20240206022717"
+                }
+            ];
+
+            scrollLeft = () => {
+                if (this.cardsWrapperRef.current) {
+                    const cardWidth = 280 + 20;
+                    this.cardsWrapperRef.current.scrollLeft -= cardWidth;
+                }
+            }
+
+            scrollRight = () => {
+                if (this.cardsWrapperRef.current) {
+                    const cardWidth = 280 + 20;
+                    this.cardsWrapperRef.current.scrollLeft += cardWidth;
+                }
+            }
+
+            render() {
+                return (
+                    <div className="cards-container">
+                        <button className="arrow left-arrow" onClick={this.scrollLeft}>
+                            ‹
+                        </button>
+
+                        <div className="cards-wrapper" ref={this.cardsWrapperRef}>
+                            {this.characters.map((character, index) => (
+                                <div key={index} className="card">
+                                    <div className="card-image">
+                                        <img src={character.image} alt={character.name} />
+                                    </div>
+                                    <div className="card-content">
+                                        <h3 className="card-title">{character.name}</h3>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        <button className="arrow right-arrow" onClick={this.scrollRight}>
+                            ›
+                        </button>
+                    </div>
+                );
+            }
+        }
+
+        // Главный компонент приложения
+        class Program extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    SearchText: "Поиск...",
+                    showPlanetMenu: false,
+                    showMainMenu: false,
+                    searchDisabled: false
+                };
+            }
+
+            func_alert = (text) => {
+                alert(`Раздел "${text}" недоступен`);
+            }
+
+            toggleMenu = () => {
+                this.setState(prevState => ({
+                    showMainMenu: !prevState.showMainMenu,
+                    showPlanetMenu: false
+                }));
+            }
+
+            togglePlanet = () => {
+                this.setState(prevState => ({
+                    showPlanetMenu: !prevState.showPlanetMenu,
+                    showMainMenu: false
+                }));
+            }
+
+            searchClick = (e) => {
+                e.preventDefault();
+                alert("Функция поиска на данный момент недоступна");
+                this.setState({ 
+                    SearchText: "Недоступно",
+                    searchDisabled: true 
+                });
+                
+                setTimeout(() => {
+                    this.setState({ 
+                        SearchText: "Поиск...",
+                        searchDisabled: false 
+                    });
+                }, 2000);
+            }
+
+            render() {
+                const { SearchText, showPlanetMenu, showMainMenu, searchDisabled } = this.state;
+
+                return (
+                    <div className="App">
+                        <header>
+                            <div className="header-left">
+                                <img 
+                                    id="logo" 
+                                    src="https://static.wikia.nocookie.net/honkai-star-rail/images/e/e6/Site-logo.png/revision/latest?cb=20230218221344&path-prefix=ru" 
+                                    alt="Логотип"
+                                />
+                                <button 
+                                    className="menu-button" 
+                                    onClick={this.togglePlanet}
+                                >
+                                    Планеты
+                                </button>
+                                
+                                {showPlanetMenu && (
+                                    <div className="dropdown-menu show">
+                                        <button 
+                                            className="menu-item" 
+                                            onClick={() => this.func_alert('Космическая станция "Герта"')}
+                                        >
+                                            Космическая станция "Герта"
+                                        </button>
+                                        <button 
+                                            className="menu-item" 
+                                            onClick={() => this.func_alert("Ярило-VI")}
+                                        >
+                                            Ярило-VI
+                                        </button>
+                                        <button 
+                                            className="menu-item" 
+                                            onClick={() => this.func_alert("Лофу Сяньчжоу")}
+                                        >
+                                            Лофу Сяньчжоу
+                                        </button>
+                                        <button 
+                                            className="menu-item" 
+                                            onClick={() => this.func_alert("Пенакония")}
+                                        >
+                                            Пенакония
+                                        </button>
+                                        <button 
+                                            className="menu-item" 
+                                            onClick={() => this.func_alert("Амфореус")}
+                                        >
+                                            Амфореус
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+
+                            <div className="header-right">
+                                <div className="d1">
+                                    <form onSubmit={this.searchClick}>
+                                        <input 
+                                            placeholder={SearchText}
+                                            disabled={searchDisabled}
+                                            readOnly={searchDisabled}
+                                        />
+                                        <button type="submit">
+                                            &#128269;
+                                        </button>
+                                    </form>
+                                </div>
+                                
+                                <button 
+                                    className="menu-button" 
+                                    onClick={this.toggleMenu}
+                                >
+                                    ☰
+                                </button>
+                                
+                                {showMainMenu && (
+                                    <div className="dropdown-menu show">
+                                        <button 
+                                            className="menu-item" 
+                                            onClick={() => this.func_alert("Новости")}
+                                        >
+                                            Новости
+                                        </button>
+                                        <button 
+                                            className="menu-item" 
+                                            onClick={() => this.func_alert("Режимы")}
+                                        >
+                                            Режимы
+                                        </button>
+                                        <button 
+                                            className="menu-item" 
+                                            onClick={() => this.func_alert("Отряды")}
+                                        >
+                                            Отряды
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        </header>
+
+                        <main className="main-content">
+                            <h2>Вселенная Honkai: Star Rail</h2>
+                            <p>
+                                Это компьютерная ролевая игра с элементами гача, разработанная компанией miHoYo. 
+                                Это первая пошаговая игра miHoYo. Сюжет повествует о главном герое, известном как 
+                                Первопроходец, который путешествует между мирами на космическом поезде «Звёздный Экспресс», 
+                                помогая различным цивилизациям и устраняя катастрофы, вызванные «Стелларонами» и другими силами. 
+                                Это четвёртая часть серии Honkai (первые две части носили название Houkai), в которой используются 
+                                новые персонажи наряду с альтернативными версиями существующих персонажей из Honkai Impact 3rd.
+                            </p>
+
+                            <div className="carousel-container">
+                                <h2>Персонажи</h2>
+                                
+                                <div className="carousel">
+                                    <PhotoCart />
+                                </div>
+                            </div>
+                        </main>
+
+                        <footer>
+                            <h4>Разработано студентами ВлГУ</h4>
+                            <h4>группа ИТ-123</h4>
+                            <h4>Сасюк Н.А.</h4>
+                            <h4>Бодров И.А.</h4>
+                            <h4>Савичева В.М.</h4>
+                        </footer>
+                    </div>
+                );
+            }
+        }
+
+        // Точка входа React
+        const rootElement = document.getElementById('root');
+        const root = ReactDOM.createRoot(rootElement);
+        root.render(
+            <React.StrictMode>
+                <Program />
+            </React.StrictMode>
+        );
+    </script>
+</body>
+</html>
