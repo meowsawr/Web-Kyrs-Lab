@@ -1,0 +1,343 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Основные стили страницы */
+body {
+    font-family: 'Caveat', cursive, sans-serif;
+    background: linear-gradient(135deg, #f6983e 0%, #ffe7b7 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Контейнер для центрирования содержимого */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Шапка страницы */
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px 0; /* Отступы сверху и снизу */
+    width: 100%;
+}
+
+/* Заголовок H1 */
+h1 {
+    color: #2c3e50;
+    font-size: 40px;
+    font-weight: 600;
+}
+
+/* Секция с календарем */
+.calendar-section {
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+/* Заголовок календаря (месяц и кнопки) */
+.calendar-header {
+    display: flex;
+    justify-content: space-between; /* Распределение пространства между элементами */
+    align-items: center; /* Выравнивание по центру по вертикали */
+    margin-bottom: 20px; /* Отступ снизу */
+    background: rgba(255, 255, 255, 0.9); /* Полупрозрачный белый фон */
+    padding: 15px; /* Внутренние отступы */
+    border-radius: 8px; /* Скругление углов */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Тень */
+}
+
+/* Кнопки навигации (предыдущий/следующий месяц) */
+.nav-btn {
+    background: #f6983e;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer; /* Указатель при наведении */
+    font-size: 25px;
+    min-width: 40px;
+}
+.nav-btn:hover {
+    background: #6f8ab7;
+}
+
+/* Заголовок H2 (название месяца и год) */
+h2 {
+    color: #2c3e50; 
+    font-size: 35px;
+    font-weight: 500;
+}
+
+/* Основная таблица календаря */
+.calendar-table {
+    width: 100%;
+    border-collapse: collapse; /* Слияние границ ячеек */
+    background: #fff9ee;
+    border-radius: 8px;
+    overflow: hidden; /* Обрезка содержимого за границами */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); 
+    table-layout: fixed; /* Фиксированная ширина ячеек */
+}
+
+/* Заголовки дней недели */
+.weekdays th {
+    background: #6f8ab7; 
+    color: white; 
+    padding: 15px 0; 
+    font-weight: 600; 
+    font-size: 25px; 
+    border: 1px solid #485c8b; 
+}
+
+/* Ячейки дней в календаре */
+#calendar-body td {
+    width: 14.28%; 
+    height: 100px; 
+    vertical-align: top; /* Выравнивание содержимого по верху */
+    padding: 10px; /* Внутренние отступы */
+    border: 1px solid #c5c9d5; 
+    cursor: pointer; /* Указатель при наведении */
+}
+
+/* Пустые ячейки (дни предыдущего/следующего месяца) */
+#calendar-body td.empty {
+    background: #ffe7b7; 
+    cursor: default; 
+}
+
+/* Текущая дата - красный фон */
+#calendar-body td.today {
+    background: #e74c3c !important; 
+    color: white; 
+    font-weight: bold; 
+}
+
+/* Даты с задачами - синяя рамка */
+#calendar-body td.has-tasks {
+    border: 4px solid #2e36cc !important; 
+}
+
+/* Номер дня в сегодняшней ячейке */
+#calendar-body td.today .day-number {
+    color: white; 
+    font-weight: 700;
+    font-size: 1.2em; /* Увеличенный размер */
+}
+
+/* Номер дня в обычной ячейке */
+#calendar-body td.day .day-number {
+    font-size: 25px; 
+    font-weight: bold;
+    margin-bottom: 2px; 
+}
+
+/* Общие стили для номера дня */
+.day-number {
+    font-size: 25px; 
+    font-weight: 500; 
+    color: #2c3e50; 
+    margin-bottom: 5px; 
+}
+
+/* Строки таблицы календаря */
+#calendar-body tr {
+    height: 100px; 
+}
+
+/* Модальное окно (всплывающее) */
+.modal {
+    display: none; /* Скрыто по умолчанию */
+    position: fixed; /* Фиксированное позиционирование */
+    top: 0; /* Сверху */
+    left: 0; /* Слева */
+    width: 100%; /* На всю ширину экрана */
+    height: 100%; /* На всю высоту экрана */
+    background: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный фон */
+    z-index: 1000; /* Поверх других элементов */
+}
+
+/* Контейнер модального окна */
+.modal-content {
+    background: white; 
+    margin: 100px auto; 
+    padding: 0; /* Без внутренних отступов */
+    max-width: 500px; 
+    border-radius: 8px; /* Скругление углов */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2); 
+}
+
+/* Заголовок модального окна */
+.modal-header {
+    display: flex;
+    justify-content: space-between; /* Распределение пространства */
+    align-items: center; /* Выравнивание по центру */
+    padding: 15px 20px; /* Внутренние отступы */
+    background: #6f8ab7; 
+    color: white; 
+    border-radius: 8px 8px 0 0; /* Скругление только верхних углов */
+}
+
+/* Заголовок H3 в модальном окне */
+.modal-header h3 {
+    font-weight: 500;
+    font-size: 20px; 
+}
+
+/* Кнопка закрытия модального окна */
+.close-btn {
+    background: none; 
+    border: none; 
+    color: white; 
+    font-size: 20px; 
+    cursor: pointer;
+    width: 30px; 
+    height: 30px; 
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    border-radius: 50%; 
+}
+.close-btn:hover {
+    background: rgba(255, 255, 255, 0.1); /* Светлый фон при наведении */
+}
+
+/* Тело модального окна */
+.modal-body {
+    padding: 20px; /* Внутренние отступы */
+}
+
+/* Форма добавления задачи */
+.task-form {
+    display: flex;
+    gap: 10px; /* Расстояние между элементами */
+    margin-bottom: 20px;
+}
+
+/* Поле ввода для новой задачи */
+.task-form input {
+    flex: 1; /* Растягивается на доступное пространство */
+    padding: 10px; 
+    border: 1px solid #6f8ab7; 
+    border-radius: 4px; 
+    font-size: 20px; 
+}
+.task-form input:focus {
+    outline: none; /* Убираем стандартную обводку */
+    border-color: #6f8ab7; 
+}
+
+/* Кнопка добавления задачи */
+.add-btn {
+    background: #f6983e; 
+    color: white; 
+    border: none; /* Без рамки */
+    padding: 10px 15px; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    font-size: 20px; 
+}
+.add-btn:hover {
+    background: #f78e2c; 
+}
+
+/* Контейнер для списка задач */
+.tasks-container {
+    max-height: 300px; 
+    overflow-y: auto; /* Вертикальная прокрутка при необходимости */
+    padding-right: 5px; 
+}
+
+/* Список задач */
+#tasks-list {
+    list-style: none; /* Убираем маркеры списка */
+}
+
+/* Элемент задачи */
+.task-item {
+    display: flex;
+    align-items: center; 
+    padding: 10px; 
+    margin-bottom: 8px; /* Отступ снизу между задачами */
+    background: #f8f9fa; 
+    border-radius: 4px; 
+    border-left: 3px solid #6f8ab7; /* Синяя полоса слева */
+}
+
+/* Текст задачи */
+.task-text {
+    flex: 1; 
+    font-size: 20px; 
+    color: #2c3e50; 
+}
+
+/* Кнопка удаления задачи */
+.delete-btn {
+    background: #e74c3c; 
+    color: white; 
+    border: none; /* Без рамки */
+    padding: 4px 8px; 
+    border-radius: 3px; 
+    cursor: pointer; 
+    font-size: 20px; 
+}
+.delete-btn:hover {
+    background: #c0392b; 
+}
+
+/* Сообщение "Планов нет" */
+.no-tasks {
+    text-align: center; 
+    padding: 30px 20px; 
+    color: #7f8c8d; 
+    font-size: 20px; 
+    font-style: italic; 
+}
+
+/* Подвал (нижняя часть страницы) */
+footer {
+    text-align: center; 	
+    margin-top: 20px; 	
+    padding-top: 15px; 	
+    border-top: 1px solid #f6983e; 		
+    color: #f6983e; 	
+    font-size: 25px; 	
+    width: 100%; 
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    body {
+        padding: 15px; 
+    }
+    .container {
+        max-width: 100%; 
+        padding: 0; 
+    }
+    #calendar-body td {
+        height: 80px; 
+        padding: 8px; 
+    }
+    .day-number {
+        font-size: 16px; 
+    }
+    .modal-content {
+        margin: 50px 15px; 
+    }
+    .calendar-header {
+        padding: 12px; 
+    }
+    h2 {
+        font-size: 18px; 
+    }  
+    #calendar-body tr {
+        height: 80px; 
+    }
+}

@@ -1,0 +1,304 @@
+/* кастомные стили остаются здесь */ 
+/* Основные стили */
+body {
+    margin: 0; /* Убираем отступы по умолчанию */
+    padding: 0; /* Убираем внутренние отступы */
+    font-family: Arial, sans-serif; /* Шрифт для всей страницы */
+    color: #625B4F; /* Цвет текста по умолчанию */
+    background-color: #F3E4CD; /* Цвет фона по умолчанию */
+    line-height: 1.6; /* задаёт высоту строки текста внутри элемента  */
+    padding-top: 240px; /* Уменьшил отступ сверху для фиксированного header */ 
+}
+
+/* Простой header */
+/* Фиксированный заголовок */
+header {
+    position: fixed; /* Чтобы заголовок оставался на месте при прокрутке */
+    top: 0; /* Определяет расстояние от верха окна браузера */
+    width: 100%; /* Шапка займёт всю ширину окна браузера */
+    background-color: #2e998d; /* Основной цвет */
+    background: linear-gradient(90deg, #FFFCDF, #2e998d); /* Градиентная заливка */
+    padding: 15px 0; /* Внутренние отступы */
+    padding: 20px; /* Внутренние отступы */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Тень */
+    z-index: 1000; /* Высокое значение, чтобы шапка была поверх других элементов */
+    color: white; /* Цвет текста */
+    color: #23746B; /* Цвет текста */
+    text-align: center; /* Выравнивание текста по центру */
+}
+
+header h1 { 
+    font-size: 1.8rem; 
+    margin-bottom: 10px; 
+}
+
+/* Навигация */
+nav ul {
+    display: flex; /* позволяет распределять дочерние элементы вдоль определённой оси (горизонтально или вертикально) */
+    display: flex; 
+    justify-content: center; /* задает выравнивание элементов по центру главной (горизонтальной) оси */
+    justify-content: center; 
+    list-style: none; /*  CSS позволяет убрать маркеры списка */
+    list-style: none; 
+    padding: 0; /* Убираем внутренние отступы */
+    padding: 0; 
+}
+
+nav li {
+    margin: 0 15px; /* Отступы между пунктами меню */
+    margin: 0 15px; 
+}
+
+nav a {
+    color: #5ed1c4; 
+    /*color: #23746B;*/ 
+    color: #23746B; /* Цвет ссылок */
+    text-decoration: none; /* Убираем подчёркивание */
+    text-decoration: none; 
+    padding: 5px 10px; /* указание значений для внутренних отступов (внутренних полей) вокруг содержимого элемента */
+    padding: 5px 10px; 
+    border-radius: 5px; /* определяет радиус закругления углов элемента */
+    border-radius: 5px;  
+    transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+nav a:hover {
+    background-color: rgba(255,255,255,0.3); /* Цвет фона прозрачный при наведении */
+    background-color: rgba(255,255,255,0.3);  
+    text-decoration: underline; /* Подчёркивание при наведении */
+    text-decoration: underline; 
+}
+
+menu{
+    margin: 0; /* Убираем внешние отступы */
+    margin: 0; 
+    padding: 15px 0; /* Только вертикальные отступы */
+    padding: 15px 0; 
+    text-align: center; /* Выравнивание текста по центру */
+    text-align: center; 
+    color: #5ed1c4; 
+    color: #23746B; /* Цвет текста */
+}
+
+menu ul{
+    list-style-type: none; /* Убираем маркеры списка */
+    list-style-type: none; 
+    display: flex; /* Горизонтальное меню */
+    display: flex; 
+    justify-content: center; /* Выравнивание по центру */
+    justify-content: center; 
+}
+
+menu ul li{
+    margin: 0 15px; /* Отступы между пунктами меню */
+    margin: 0 15px; 
+}
+
+menu ul li a{
+    color: #5ed1c4; 
+    color: #23746B; /* Цвет ссылок */
+    text-decoration: none; /* Убираем подчёркивание */
+    text-decoration: none; 
+}
+menu ul li a:hover {
+    text-decoration: underline; /* Подчёркивание при наведении */
+    text-decoration: underline; 
+}
+
+/* Основной контент с отступом под header */
+main { 
+    margin-top: 416px; /* Большой отступ сверху (чтобы контент не скрывался под фиксированной шапкой) */
+    margin-top: 416px; 
+    padding: 20px; /* Внутренние отступы */
+    padding: 20px; 
+    background-color: #F3E4CD; /* Цвет фона */
+    background-color: #F3E4CD; 
+}
+
+/* Простой footer такого же цвета */ 
+/* Стили для подвала */
+footer { 
+    background-color: #2e998d; /* Тот же цвет, что и header */ 
+    background-color: #FFFCDF; /* Цвет фона */
+    color: white; 
+    color: #23746B; /* Цвет текста */
+    padding: 30px 0; 
+    padding: 20px; /* Внутренние отступы */
+    text-align: center; /* Выравнивание текста по центру */
+    text-align: center; 
+}
+
+footer a { 
+    /*color: #23746B;*/ 
+    color: #5ed1c4; 
+    color: #23746B; /* Цвет ссылок */
+    text-decoration: none; /* Убираем подчёркивание */
+    text-decoration: none; 
+} 
+footer a:hover { 
+    text-decoration: underline; /* Подчёркивание при наведении */
+    text-decoration: underline; 
+}
+
+footer ul {
+    list-style-type: none; /* Убираем маркеры списка */
+    padding: 0; /* Убираем внутренние отступы */
+    margin: 0; /* Убираем внешние отступы */
+    display: flex; /* Горизонтальное меню */
+    justify-content: center; /* Выравнивание по центру */
+}
+footer ul li {
+    margin: 0 15px; /* Отступы между пунктами меню */
+}
+footer ul li a {
+    color: #23746B; /* Цвет ссылок */
+    text-decoration: none; /* Убираем подчёркивание */
+}
+footer ul li a:hover {
+    text-decoration: underline; /* Подчёркивание при наведении */
+} 
+
+/* Таблица */
+table {
+    width: 100%; /* Полная ширина */
+    border-collapse: collapse;
+    /* устанавливает, как отображать границы вокруг ячеек таблицы
+    separate — границы отображаются отдельно друг от друга. Это значение по умолчанию. 
+    collapse — соседние границы отображаются как одна граница. 
+    */
+    margin: 20px 0; /* позволяет задать величину отступа сразу для всех сторон элемента */
+    box-shadow: 0 0 20px rgba(0,0,0,0.15); /* позволяет добавлять тень */
+}
+caption {
+    font-size: 1.2em; /* задает размер шрифта в 1,2 раза больше */
+    font-weight: 600; /* жирный текст */
+    margin-bottom: 10px; /* внешний отступ снизу */
+    color: #23746B;
+    padding: 10px;
+    background-color: rgba(255, 252, 223, 0.7); /* Прозрачность */
+    border-radius: 5px 5px 0 0; /* Скругление верхних углов */
+}
+
+th, td {
+    padding: 12px 15px; /* указание парных противоположных отступов */
+    text-align: left; /* выравнивание текста по левому краю */
+    border: 1px solid #625B4F; /* для задания стиля, толщины и цвета границы элемента 
+    1px — ширина границы
+    solid — стиль границы, в данном случае — сплошная линия
+    #625B4F — цвет границы
+    */
+}
+
+th {
+    background-color: #23746B; /* Цвет фона заголовочных ячеек */
+    color: white; /* Цвет текста */
+}
+tr:nth-child(even) { /* выбирает чётные элементы внутри родителя  */
+    background-color: #f2f2f2;
+}
+tr:nth-child(odd) { /* выбирает нечётные элементы внутри родителя  */
+    background-color: #e0e0e0;
+}
+
+/* Форма */
+form {
+    max-width: 600px; /* Ограничение ширины формы */
+    margin: 0 auto; /* Форма со стороны по умолчанию */
+    background: rgba(255,255,255,0.8);
+    padding: 20px; /* Внутренние отступы */
+    border-radius: 10px; /* Скругление углов */
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* позволяет добавлять тень */
+}
+fieldset {
+    border: 1px solid #625B4F; /* Граница для fieldset */
+    padding: 20px; /* Внутренние отступы */
+    border-radius: 10px; /* Скругление углов */
+}
+label {
+    display: block; /* Каждая метка на новой строке */
+}
+input, textarea {
+    width: 100%; /* Ширина полей на всю доступную ширину */
+    padding: 5px; /* Внутренние отступы */
+    margin-top: 3px; /* Отступ сверху */
+    border: 1px solid #625B4F; /* Граница полей */
+    border-radius: 5px; /* Скругление углов */
+}
+input[type="color"] {
+    width: 100px; /* Ширина */
+    height: 50px; /* Высота */
+    padding: 5px; /* Внутренние отступы */
+    border: 1px solid #625B4F; /* Граница */
+    border-radius: 5px; /* Скругление углов */
+}
+input[type="submit"] {
+    background-color: #625B4F; /* Цвет фона кнопки */
+    color: white; /* Цвет текста кнопки */
+}
+input[type="submit"]:hover {
+    background-color: #23746B ; /* Цвет фона при наведении */
+}
+
+/* Адаптация для мобильных */ 
+@media (max-width: 768px) { 
+    body { 
+        padding-top: 180px; 
+    } 
+        
+    header { 
+        padding: 10px 0; 
+    } 
+
+    nav ul { 
+        flex-direction: column; 
+        margin-bottom: 10px; 
+    } 
+        
+    nav li { 
+        margin: 5px 0; 
+
+    } 
+        
+    menu ul { 
+        flex-wrap: wrap; 
+    } 
+        
+    menu ul li { 
+        margin: 5px 10px; 
+    } 
+        
+    main { 
+        margin-top: 250px; 
+    } 
+} 
+ 
+@media (max-width: 500px) { 
+    body { 
+        padding-top: 220px; 
+    } 
+    header h1 { 
+        font-size: 1.5rem; 
+    } 
+
+} 
+ 
+@media (max-width: 300px) { 
+    body { 
+        padding-top: 260px; 
+    } 
+        
+    header h1 { 
+        font-size: 1.3rem; 
+    } 
+} 
+ 
+@media print { 
+    header, footer, nav { 
+        display: none; 
+    } 
+    main { 
+        margin-top: 0; 
+    } 
+}
